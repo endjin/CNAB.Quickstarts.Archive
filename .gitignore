@@ -1,0 +1,5 @@
+**/*parameters*.toml
+**/*credentials*.yaml
+**/bundle.json
+**/azuredeploy.**.parameters.json
+.vs/**/*
