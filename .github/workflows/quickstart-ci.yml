@@ -20,6 +20,8 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
+      - name: Detect quickstart solution changes
+        uses: endjin/CNAB.Quickstarts.GitHub.Actions/detect-quickstart-solution-changes@master
       - name: Install Porter
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/install-porter@master
       - name: Parse Porter metadata
