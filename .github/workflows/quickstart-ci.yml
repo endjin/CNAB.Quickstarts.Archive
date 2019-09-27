@@ -25,4 +25,4 @@ jobs:
       - name: Parse Porter metadata
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
         with:
-          metadata_path: ${{ github.workspace }}/porter/sql-server-always-on/porter.yaml # get this value from previous step
+          metadata_path: porter/sql-server-always-on/porter.yaml # get this value from previous step
