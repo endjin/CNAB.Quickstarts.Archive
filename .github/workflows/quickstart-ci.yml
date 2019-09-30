@@ -24,6 +24,7 @@ jobs:
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/detect-quickstart-solution-changes@master
         with:
           repo_name: ${{ github.repository }}
+          trigger: ${{ github.event_name }}
           pr_number: ${{ github.event.number }}
           source_version: ${{ github.sha }}
       - name: Install Porter
