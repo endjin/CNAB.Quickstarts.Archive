@@ -20,16 +20,19 @@ jobs:
         uses: actions/checkout@v1
         with:
           fetch-depth: 1
-      - name: Detect quickstart solution changes
+      - name: Validate & detect quickstart solution changes
+        id: validate_and_detect_qs_changes
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/validate-and-detect-quickstart-changes@master
         with:
           repo_name: ${{ github.repository }}
           trigger: ${{ github.event_name }}
           pr_number: ${{ github.event.number }}
           source_version: ${{ github.sha }}
-      - name: Install Porter
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.build_is_required.outputs.quickstart_tool == 'porter'
+        name: Install Porter
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/install-porter@master
-      - name: Parse Porter metadata
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.build_is_required.outputs.quickstart_tool == 'porter'
+        name: Parse Porter metadata
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
         with:
-          metadata_path: porter/sql-server-always-on/porter.yaml # get this value from previous step
+          metadata_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/porter.yaml
