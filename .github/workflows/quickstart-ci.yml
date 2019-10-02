@@ -32,11 +32,11 @@ jobs:
         run: |
           echo "${{ toJson(steps) }}"
           echo "${{ steps.validate_and_detect_qs_changes.outputs.build_is_required }}"
-          echo "${{ steps.validate_and_detect_qs_changes.outputs.build_is_required.outputs.quickstart_tool }}"
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.build_is_required.outputs.quickstart_tool == 'porter'
+          echo "${{ steps.validate_and_detect_qs_changes.outputs.quickstart_tool }}"
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Install Porter
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/install-porter@master
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.build_is_required.outputs.quickstart_tool == 'porter'
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Parse Porter metadata
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
         with:
