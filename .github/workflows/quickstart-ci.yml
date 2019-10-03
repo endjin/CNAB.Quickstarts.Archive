@@ -42,7 +42,7 @@ jobs:
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
         with:
           metadata_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/porter.yaml
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.build_is_required.outputs.quickstart_tool == 'porter'
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Build Porter bundle
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/build-porter-bundle@master
         with:
