@@ -46,5 +46,5 @@ jobs:
         name: Build Porter bundle
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/build-porter-bundle@master
         with:
-          bundle_dir: ${{ steps.parse_porter_metadata.outputs.invocation_image }}
-          invocation_image: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}
+          bundle_dir: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}
+          invocation_image: ${{ steps.parse_porter_metadata.outputs.invocation_image }}
