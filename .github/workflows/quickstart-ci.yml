@@ -35,6 +35,7 @@ jobs:
           echo "${{ steps.validate_and_detect_qs_changes.outputs.quickstart_tool }}"
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Install Porter
+        id: install_porter
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/install-porter@master
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Parse Porter metadata
@@ -44,7 +45,9 @@ jobs:
           metadata_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/porter.yaml
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Build Porter bundle
+        id: build_porter_bundle
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/build-porter-bundle@master
         with:
+          porter_path: ${{ steps.install_porter.outputs.porter_path }}
           bundle_dir: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}
           invocation_image: ${{ steps.parse_porter_metadata.outputs.invocation_image }}
