@@ -32,7 +32,10 @@ jobs:
         name: Install Porter
         id: install_porter
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/install-porter@master
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
+        with:
+          porter_url: https://github.com/simongdavies/porter/releases/download/
+          porter_version: fix
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.build_is_required.outputs.quickstart_tool == 'porter'
         name: Parse Porter metadata
         id: parse_porter_metadata
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
