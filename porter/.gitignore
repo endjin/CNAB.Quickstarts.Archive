@@ -1,3 +1,4 @@
 **/cnab/app/mixins/*
 **/cnab/app/porter-runtime
 **/Dockerfile
+**/.cnab/**/*
