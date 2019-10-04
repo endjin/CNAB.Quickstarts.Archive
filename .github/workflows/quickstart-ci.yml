@@ -28,20 +28,32 @@ jobs:
           trigger: ${{ github.event_name }}
           pr_number: ${{ github.event.number }}
           source_version: ${{ github.sha }}
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
+        name: Docker Registry Login
+        uses: azure/container-actions/docker-login@master
+        with:
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          login-server: ${{ secrets.REGISTRY_SERVER }}
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Install Porter
         id: install_porter
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/install-porter@master
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
-        name: Parse Porter metadata
-        id: parse_porter_metadata
-        uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
-        with:
-          metadata_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/porter.yaml
+      # - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
+      #   name: Parse Porter metadata
+      #   id: parse_porter_metadata
+      #   uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
+      #   with:
+      #     metadata_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/porter.yaml
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Build Porter bundle
         id: build_porter_bundle
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/build-porter-bundle@master
         with:
           bundle_dir: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}
-          invocation_image: ${{ steps.parse_porter_metadata.outputs.invocation_image }}
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
+        name: Publish Porter bundle
+        id: publish_porter_bundle
+        uses: endjin/CNAB.Quickstarts.GitHub.Actions/publish-porter-bundle@master
+        with:
+          bundle_dir: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}
