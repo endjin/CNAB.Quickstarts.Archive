@@ -56,7 +56,7 @@ jobs:
         id: generate_arm_template
         uses: endjin/CNAB.ARM-Converter.GitHub.Actions/run-cnab-to-arm-tool@master
         with:
-          bundle_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/bundle.json
+          bundle_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/.cnab/bundle.json
           output_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
         name: Upload ARM template artifact
