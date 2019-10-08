@@ -39,12 +39,6 @@ jobs:
         name: Install Porter
         id: install_porter
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/install-porter@master
-      # - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
-      #   name: Parse Porter metadata
-      #   id: parse_porter_metadata
-      #   uses: endjin/CNAB.Quickstarts.GitHub.Actions/parse-bundle-metadata@master
-      #   with:
-      #     metadata_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/porter.yaml
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Build Porter bundle
         id: build_porter_bundle
@@ -57,3 +51,16 @@ jobs:
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/publish-porter-bundle@master
         with:
           bundle_dir: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
+        name: Generate ARM template
+        id: generate_arm_template
+        uses: endjin/CNAB.ARM-Converter.GitHub.Actions/run-cnab-to-arm-tool@master
+        with:
+          bundle_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/bundle.json
+          output_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
+        name: Upload ARM template artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: azuredeploy.json
+          path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
