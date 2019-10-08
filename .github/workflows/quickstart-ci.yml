@@ -67,6 +67,8 @@ jobs:
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
         name: Commit & push if ARM template is updated
         run: |
+          git config --global user.email "${GITHUB_ACTOR}-bot"
+          git config --global user.name "${GITHUB_ACTOR}-bot"
           git add . && git diff-index --cached --quiet HEAD || git commit -m "Update ARM template for bundle '${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}'"
           git push
 
