@@ -63,7 +63,7 @@ jobs:
         uses: endjin/git-auto-commit-action@master
         with:
           commit_message: "Update ARM template for bundle '${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}'"
-          branch: ${{ github.head_ref }}
+          branch: ${{ github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
