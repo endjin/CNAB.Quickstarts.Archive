@@ -59,10 +59,6 @@ jobs:
           bundle_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/.cnab/bundle.json
           output_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
-        run: |
-          git status
-          git diff
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
         name: Commit & push ARM template if updated
         uses: endjin/git-auto-commit-action@master
         with:
