@@ -65,10 +65,10 @@ jobs:
           name: azuredeploy.json
           path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
-        name: Commit & push if ARM template is updated
-        run: |
-          git config --global user.email "${GITHUB_ACTOR}-bot"
-          git config --global user.name "${GITHUB_ACTOR}-bot"
-          git add . && git diff-index --cached --quiet HEAD || git commit -m "Update ARM template for bundle '${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}'"
-          git push
+        uses: stefanzweifel/git-auto-commit-action@v2.1.0
+        with:
+          commit_message: "Update ARM template for bundle '${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}'"
+          branch: ${{ github.head_ref }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
