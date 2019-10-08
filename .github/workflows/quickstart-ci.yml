@@ -64,3 +64,9 @@ jobs:
         with:
           name: azuredeploy.json
           path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
+        name: Commit & push if ARM template is updated
+        run: |
+          git add . && git diff-index --cached --quiet HEAD || git commit -m "Update ARM template for bundle '${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}'""
+          git push
+
