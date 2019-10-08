@@ -59,12 +59,6 @@ jobs:
           bundle_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/.cnab/bundle.json
           output_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
-        name: Upload ARM template artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: azuredeploy.json
-          path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
         name: Commit & push ARM template if updated
         uses: stefanzweifel/git-auto-commit-action@v2.1.0
         with:
