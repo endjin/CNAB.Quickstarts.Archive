@@ -1,4 +1,4 @@
-# test 31
+# test 32
 name: sql-server-always-on
 version: 0.1.2
 description: "SQL Server Always On for AKS"
