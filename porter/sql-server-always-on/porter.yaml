@@ -27,7 +27,7 @@ credentials:
   description: Azure Subscription Id used to set the subscription where the account has access to multiple subscriptions
 
 parameters:
-- name: aks_resource_group
+- name: aks_resource_group1
   type: string
   default: sql-server-always-on
   description: The name of the resource group to create the AKS Cluster in
