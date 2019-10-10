@@ -6,7 +6,7 @@
 			"type": "",
 			"metadata": {}
 		},
-		"aks_resource_group": {
+		"aks_resource_group1": {
 			"type": "",
 			"metadata": {}
 		},
@@ -185,16 +185,16 @@
 									"value": "cnabquickstarts.azurecr.io/porter/sql-server-always-on"
 								},
 								{
-									"name": "AKS_CLUSTER_NAME",
-									"value": "[parameters('aks_cluster_name')]"
-								},
-								{
-									"name": "AKS_RESOURCE_GROUP",
-									"value": "[parameters('aks_resource_group')]"
+									"name": "AKS_RESOURCE_GROUP1",
+									"value": "[parameters('aks_resource_group1')]"
 								},
 								{
 									"name": "LOCATION",
 									"value": "[parameters('location')]"
+								},
+								{
+									"name": "AKS_CLUSTER_NAME",
+									"value": "[parameters('aks_cluster_name')]"
 								},
 								{
 									"name": "AZURE_TENANT_ID",
