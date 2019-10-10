@@ -197,10 +197,6 @@
 									"value": "[parameters('location')]"
 								},
 								{
-									"name": "SQL_MASTERKEYPASSWORD",
-									"secureValue": "[parameters('sql_masterkeypassword')]"
-								},
-								{
 									"name": "SQL_SAPASSWORD",
 									"secureValue": "[parameters('sql_sapassword')]"
 								},
@@ -219,6 +215,10 @@
 								{
 									"name": "AZURE_TENANT_ID",
 									"value": "[subscription().tenantId]"
+								},
+								{
+									"name": "SQL_MASTERKEYPASSWORD",
+									"secureValue": "[parameters('sql_masterkeypassword')]"
 								}
 							]
 						}
