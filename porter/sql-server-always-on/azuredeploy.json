@@ -185,20 +185,16 @@
 									"value": "cnabquickstarts.azurecr.io/porter/sql-server-always-on"
 								},
 								{
+									"name": "AKS_CLUSTER_NAME",
+									"value": "[parameters('aks_cluster_name')]"
+								},
+								{
 									"name": "AKS_RESOURCE_GROUP1",
 									"value": "[parameters('aks_resource_group1')]"
 								},
 								{
 									"name": "LOCATION",
 									"value": "[parameters('location')]"
-								},
-								{
-									"name": "AKS_CLUSTER_NAME",
-									"value": "[parameters('aks_cluster_name')]"
-								},
-								{
-									"name": "AZURE_TENANT_ID",
-									"value": "[subscription().tenantId]"
 								},
 								{
 									"name": "SQL_MASTERKEYPASSWORD",
@@ -219,6 +215,10 @@
 								{
 									"name": "AZURE_SUBSCRIPTION_ID",
 									"value": "[subscription().subscriptionId]"
+								},
+								{
+									"name": "AZURE_TENANT_ID",
+									"value": "[subscription().tenantId]"
 								}
 							]
 						}
