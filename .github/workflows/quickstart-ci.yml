@@ -3,7 +3,7 @@ name: Quickstart CI
 on: 
   push:
     branches: 
-      - '*'
+      - master
   pull_request:
     branches: 
       - master
@@ -51,19 +51,19 @@ jobs:
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/publish-porter-bundle@master
         with:
           bundle_dir: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && github.event_name == 'pull_request'
         name: Generate ARM template
         id: generate_arm_template
         uses: endjin/CNAB.ARM-Converter.GitHub.Actions/run-cnab-to-arm-tool@master
         with:
           bundle_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/.cnab/bundle.json
           output_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && github.event_name == 'push'
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && github.event_name == 'pull_request'
         name: Commit & push ARM template if updated
         uses: endjin/git-auto-commit-action@master
         with:
           commit_message: "Update ARM template for bundle '${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}'"
-          branch: ${{ github.head_ref || github.ref }}
+          branch: ${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
