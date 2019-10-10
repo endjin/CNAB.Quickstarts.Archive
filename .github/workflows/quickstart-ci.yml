@@ -58,12 +58,12 @@ jobs:
         with:
           bundle_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/.cnab/bundle.json
           output_path: ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/azuredeploy.json
-      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true'
+      - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && github.event_name == 'push'
         name: Commit & push ARM template if updated
         uses: endjin/git-auto-commit-action@master
         with:
           commit_message: "Update ARM template for bundle '${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}'"
-          branch: ${{ github.ref }}
+          branch: ${{ github.head_ref || github.ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
