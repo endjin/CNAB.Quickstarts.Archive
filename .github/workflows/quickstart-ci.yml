@@ -22,6 +22,11 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Fetch tags
+        run: |
+          git fetch --tags
+          git branch --create-reflog master origin/master
+
       - name: Validate & detect quickstart solution changes
         id: validate_and_detect_qs_changes
         uses: endjin/CNAB.Quickstarts.GitHub.Actions/validate-and-detect-quickstart-changes@master
