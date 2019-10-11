@@ -48,7 +48,7 @@ jobs:
 
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Write temporary GitVersion config file
-        run: 'echo "next-version: ${{ steps.parse_porter_manifest.outputs.version }}" > ${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/gitversion.yml'
+        run: 'echo "next-version: ${{ steps.parse_porter_manifest.outputs.version }}" > ${{ github.workspace }}/${{ steps.validate_and_detect_qs_changes.outputs.quickstart_solution_path }}/gitversion.yml'
         
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Set GitVersion
