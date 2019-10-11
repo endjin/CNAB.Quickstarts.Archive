@@ -64,7 +64,7 @@ jobs:
         id: set_gitversion
         uses: docker://gittools/gitversion:5.0.2-linux
         with:
-          args: '-nocache -output buildserver -exec /bin/bash -execargs "-c \"echo ::set-output name=fullsemver::$GitVersion_FullSemVer\""'
+          args: '-nocache -output buildserver -exec /bin/bash -execargs "-c \"echo $GitVersion_FullSemVer > /github/workspace/version.txt\""'
 
       - if: steps.validate_and_detect_qs_changes.outputs.build_is_required == 'true' && steps.validate_and_detect_qs_changes.outputs.quickstart_tool == 'porter'
         name: Install Porter
